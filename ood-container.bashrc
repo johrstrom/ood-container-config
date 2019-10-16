@@ -30,6 +30,7 @@ alias enhance='sudo yum install -y epel-release && sudo yum install -y pandoc'
 alias plz='sudo'
 alias please='sudo'
 alias logs="sudo tail -f  /var/log/ondemand-nginx/$USER/access.log /var/log/ondemand-nginx/$USER/error.log"
+alias err="sudo cat /var/log/ondemand-nginx/ood/error.log | less"
 
 export LANG=en_US.UTF-8
 
