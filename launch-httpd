@@ -20,6 +20,17 @@ sudo su root <<MKDEV
   ln -s $APP_DEV_DIR gateway
 MKDEV
 
-#sudo chown $USER:$USER $HOME/ondemand # doesn't mount quite right
+sudo chown $USER:$USER $HOME/ondemand # doesn't mount quite right
 
-sudo /opt/rh/httpd24/root/usr/sbin/httpd-scl-wrapper -DFOREGROUND
+source /etc/os-release
+
+if [ "$ID" == "centos" ]; then
+  sudo /opt/rh/httpd24/root/usr/sbin/httpd-scl-wrapper -DFOREGROUND
+elif [ "$ID" == "debian" ]; then
+  sudo su root <<RUNAPACHE
+  source /etc/apache2/envvars
+  /usr/sbin/apache2 -k start
+  PID=\$(pgrep apache2 | head -n 1)
+  tail "--pid=\$PID" -f /dev/null
+RUNAPACHE
+fi
