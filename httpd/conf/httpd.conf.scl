@@ -6,9 +6,6 @@
 # <URL:http://httpd.apache.org/docs/2.4/mod/directives.html>
 # for a discussion of each configuration directive.
 #
-# See the httpd.conf(5) man page for more information on this configuration,
-# and httpd.service(8) on using and configuring the httpd service.
-#
 # Do NOT simply read the instructions in here without understanding
 # what they do.  They're here only as hints or reminders.  If you are unsure
 # consult the online docs. You have been warned.  
@@ -31,6 +28,7 @@
 # same ServerRoot for multiple httpd daemons, you will need to change at
 # least PidFile.
 #
+#ServerRoot "/opt/rh/httpd24/root/etc/httpd"
 ServerRoot "/etc/httpd"
 
 #
@@ -119,19 +117,19 @@ ServerAdmin root@localhost
 # documents. By default, all requests are taken from this directory, but
 # symbolic links and aliases may be used to point to other locations.
 #
-DocumentRoot "/var/www/html"
+DocumentRoot "/opt/rh/httpd24/root/var/www/html"
 
 #
-# Relax access to content within /var/www.
+# Relax access to content within /opt/rh/httpd24/root/var/www.
 #
-<Directory "/var/www">
+<Directory "/opt/rh/httpd24/root/var/www">
     AllowOverride None
     # Allow open access:
     Require all granted
 </Directory>
 
 # Further relax access to the default document root:
-<Directory "/var/www/html">
+<Directory "/opt/rh/httpd24/root/var/www/html">
     #
     # Possible values for the Options directive are "None", "All",
     # or any combination of:
@@ -247,15 +245,15 @@ LogLevel warn
     # client.  The same rules about trailing "/" apply to ScriptAlias
     # directives as to Alias.
     #
-    ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
+    ScriptAlias /cgi-bin/ "/opt/rh/httpd24/root/var/www/cgi-bin/"
 
 </IfModule>
 
 #
-# "/var/www/cgi-bin" should be changed to whatever your ScriptAliased
+# "/opt/rh/httpd24/root/var/www/cgi-bin" should be changed to whatever your ScriptAliased
 # CGI directory exists, if you have that configured.
 #
-<Directory "/var/www/cgi-bin">
+<Directory "/opt/rh/httpd24/root/var/www/cgi-bin">
     AllowOverride None
     Options None
     Require all granted

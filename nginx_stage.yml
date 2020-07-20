@@ -23,6 +23,11 @@
 #
 #ondemand_portal: null
 
+# Title of this OnDemand portal that apps *should* display in their navbar
+# NB: If this is not set then most apps will use default title "Open OnDemand"
+#
+#ondemand_title: null
+
 # Custom environment variables to set for the PUN environment
 # Below is an example of the use for setting env vars.
 #
@@ -30,23 +35,17 @@
 #   OOD_DASHBOARD_TITLE: "Open OnDemand"
 #   OOD_BRAND_BG_COLOR: "#53565a"
 #   OOD_BRAND_LINK_ACTIVE_BG_COLOR: "#fff"
-#pun_custom_env:
-#  OOD_DASHBOARD_TITLE: "Jeff's Local Ondemand"
-#  HOME: "/users/$USER"
-
 
 # List of environment variables to pass onto PUN environment
 # from /etc/ood/profile. Example below shows some default
 # env vars that are declared.
 #
-#pun_custom_env_declarations:
-#- PATH
-#- LD_LIBRARY_PATH
-#- MANPATH
-#- SCLS
-#- X_SCLS
-#- HOME
-#- FOO
+# pun_custom_env_declarations:
+#  - PATH
+#  - LD_LIBRARY_PATH
+#  - MANPATH
+#  - SCLS
+#  - X_SCLS
 
 # Location of the ERB templates used in the generation of the NGINX configs
 #
@@ -58,7 +57,8 @@
 
 # Path to NGINX executable used by OnDemand
 #
-#nginx_bin: '/opt/ood/ondemand/root/usr/sbin/nginx_wrapper'
+#nginx_bin: '/bin/strace /opt/ood/ondemand/root/usr/sbin/nginx'
+nginx_bin: '/opt/nginx_wrapper'
 
 # White-list of signals that can be sent to the NGINX process
 #
@@ -208,12 +208,12 @@
 #
 #disabled_shell: '/access/denied'
 
-# Override the user's home directory in case you need to use something 
-# different from what is returned by LDAP or /etc/passwd.  This requires
-# the 'user' variable like the examples below.  Defaults to nil meaning
-# you use whatever is in LDAP or /etc/passwd.
-# 
-# '/home/%{user}'
-# '/users/%{user}'
+# Set BUNDLE_USER_CONFIG to /dev/null in the PUN environment
+# NB: This prevents a user's ~/.bundle/config from affecting OnDemand applications
 #
-#user_home_dir: "/users/%{user}"
+#disable_bundle_user_config: true
+
+
+#pun_pre_hook: '/opt/proxy/pre_hook_wrapper'
+
+#nginx_file_upload_max: 2147
