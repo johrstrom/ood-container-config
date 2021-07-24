@@ -1,6 +1,12 @@
 #!/bin/bash
 
-export OOD_CTR_PASSWORD=$(bcrypt $1)
+echo -n 'Enter Password: '
+read -rs PASSWORD
+
+export OOD_CTR_PASSWORD=$(bcrypt $PASSWORD)
+unset $PASSWORD
+
+echo ''
 
 cat <<EOF > static_user.yml
 enablePasswordDB: true
